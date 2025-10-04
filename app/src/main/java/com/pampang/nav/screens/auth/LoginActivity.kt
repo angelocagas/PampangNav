@@ -1,9 +1,9 @@
 package com.pampang.nav.screens.auth
 
 import android.os.Bundle
-import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivityLoginBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -26,7 +26,6 @@ class LoginActivity : AppCompatActivity() {
         initBinding()
         initEventListener()
         initLiveData()
-        initFullScreen()
     }
 
     private fun initBinding() {
@@ -72,16 +71,16 @@ class LoginActivity : AppCompatActivity() {
 //                )
 //            }
 //        }
+
+        mBinding.apply {
+            textViewSignUpNow.setOnClickListener {
+                launchActivity<SignUpActivity>()
+            }
+        }
     }
 
     private fun initLiveData() {
 
     }
 
-    private fun initFullScreen() {
-        window.setFlags(
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-            WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-        )
-    }
 }
