@@ -25,9 +25,12 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".screens.auth.SignUpActivity"
+            android:exported="false">
+        </activity>
+        <activity
             android:name=".screens.MainActivity"
             android:exported="false">
-
         </activity>
     </application>
 
