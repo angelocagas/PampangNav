@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.firebase.auth.FirebaseUser
 import com.pampang.nav.repositories.AuthRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -22,10 +23,16 @@ class AuthViewModel @Inject constructor(
     private val _loginResult = MutableLiveData<Result<Unit>?>()
     val loginResult: LiveData<Result<Unit>?> get() = _loginResult
 
+    private val _currentUser = MutableLiveData<FirebaseUser?>()
+    val currentUser: LiveData<FirebaseUser?> = _currentUser
+
+    private val _loggedInRole = MutableLiveData<String>()
+    val loggedInRole: LiveData<String> = _loggedInRole
+
     fun login(email: String, password: String, role: String) {
         viewModelScope.launch {
             val result = authRepository.login(email, password, role)
-            _loginResult .value = result
+            _loginResult.value = result
         }
     }
 
@@ -39,12 +46,17 @@ class AuthViewModel @Inject constructor(
     }
 
     fun logout() {
-        authRepository.logout()
+        viewModelScope.launch {
+            authRepository.logout()
+        }
+    }
+
+    fun loadUserData() {
+        _currentUser.value = authRepository.getCurrentUser()
+        _loggedInRole.value = authRepository.getLoggedInRole()
     }
 
     fun clearRegisterResult() {
         _registerResult.value = null
     }
-
-    val currentUser = authRepository.currentUser
 }

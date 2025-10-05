@@ -9,7 +9,8 @@ import com.angelodev.ggbonuscalc.utilities.extension.showToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivityLoginBinding
-import com.pampang.nav.screens.MainActivity
+import com.pampang.nav.screens.BuyerMainActivity
+import com.pampang.nav.screens.SellerMainActivity
 import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -82,7 +83,12 @@ class LoginActivity : AppCompatActivity() {
         mAuthViewModel.loginResult.observe(this) { result ->
             result?.let {
                 if (it.isSuccess) {
-                    launchActivity<MainActivity>()
+                    val role = selectedRole
+                    when (role) {
+                        "buyer" -> launchActivity<BuyerMainActivity>()
+                        "seller" -> launchActivity<SellerMainActivity>() //
+                        else -> launchActivity<LoginActivity>() // fallback
+                    }
                     finish()
                 } else {
                     showResultDialog("Error", it.exceptionOrNull()?.message ?: "Unknown error")

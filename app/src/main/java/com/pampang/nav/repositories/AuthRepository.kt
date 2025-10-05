@@ -3,7 +3,10 @@ package com.pampang.nav.repositories
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
+import com.pampang.nav.constants.SharedPrefsConst
+import com.pampang.nav.utilities.SharedPrefs
 import kotlinx.coroutines.tasks.await
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -11,12 +14,13 @@ import javax.inject.Singleton
 @Singleton
 class AuthRepository @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
-    private val firestore: FirebaseFirestore
+    private val firestore: FirebaseFirestore,
+    private val sharedPrefs: SharedPrefs
 ) {
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> get() = _isLoading
-    val currentUser get() = firebaseAuth.currentUser
+
 
     suspend fun register(
         email: String,
@@ -59,6 +63,8 @@ class AuthRepository @Inject constructor(
 
             if (storedRole != role) {
                 throw Exception("Please double-check your credentials and selected role.")
+            } else {
+                sharedPrefs.save(SharedPrefsConst.SHARED_PREFS_LOGGED_IN_ROLE, role)
             }
 
             Result.success(Unit)
@@ -69,8 +75,13 @@ class AuthRepository @Inject constructor(
         }
     }
 
+    fun getCurrentUser(): FirebaseUser? = FirebaseAuth.getInstance().currentUser
 
-    fun logout() {
+    fun getLoggedInRole(): String? =
+        sharedPrefs.getString(SharedPrefsConst.SHARED_PREFS_LOGGED_IN_ROLE, "none")
+
+    suspend fun logout() {
         firebaseAuth.signOut()
+        sharedPrefs.clearAll()
     }
 }
