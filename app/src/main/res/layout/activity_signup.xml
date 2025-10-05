@@ -187,7 +187,7 @@
 
 
                 <Button
-                    android:id="@+id/button_login"
+                    android:id="@+id/button_register"
                     style="@style/Widget.MaterialComponents.Button"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -206,10 +206,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/button_login"
-                    app:layout_constraintEnd_toEndOf="@+id/button_login"
-                    app:layout_constraintStart_toStartOf="@+id/button_login"
-                    app:layout_constraintTop_toTopOf="@+id/button_login" />
+                    app:layout_constraintBottom_toBottomOf="@+id/button_register"
+                    app:layout_constraintEnd_toEndOf="@+id/button_register"
+                    app:layout_constraintStart_toStartOf="@+id/button_register"
+                    app:layout_constraintTop_toTopOf="@+id/button_register" />
 
                 <TextView
                     android:id="@+id/text_view_registration_info"
@@ -221,7 +221,7 @@
                     android:textStyle="bold"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/button_login" />
+                    app:layout_constraintTop_toBottomOf="@+id/button_register" />
 
                 <TextView
                     android:id="@+id/text_view_login"
