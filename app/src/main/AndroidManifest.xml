@@ -16,20 +16,30 @@
         android:theme="@style/Theme.PampangNav"
         tools:targetApi="31">
         <activity
-            android:name=".screens.auth.LoginActivity"
+            android:name=".screens.SplashScreenActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+        </activity>
+        <activity
+            android:name=".screens.auth.LoginActivity"
+            android:exported="false">
+
         </activity>
         <activity
             android:name=".screens.auth.SignUpActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".screens.MainActivity"
+            android:name=".screens.BuyerMainActivity"
+            android:exported="false">
+        </activity>
+        <activity
+            android:name=".screens.SellerMainActivity"
             android:exported="false">
         </activity>
     </application>
