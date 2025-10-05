@@ -1,5 +1,7 @@
 package com.pampang.nav.repositories
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.tasks.await
@@ -12,6 +14,8 @@ class AuthRepository @Inject constructor(
     private val firestore: FirebaseFirestore
 ) {
 
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading: LiveData<Boolean> get() = _isLoading
     val currentUser get() = firebaseAuth.currentUser
 
     suspend fun register(
@@ -21,6 +25,8 @@ class AuthRepository @Inject constructor(
         role: String
     ): Result<Unit> {
         return try {
+            _isLoading.postValue(true)
+
             val authResult = firebaseAuth.createUserWithEmailAndPassword(email, password).await()
             val uid = authResult.user?.uid ?: throw Exception("No UID found")
 
@@ -36,17 +42,33 @@ class AuthRepository @Inject constructor(
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
+        } finally {
+            _isLoading.postValue(false)
         }
     }
 
-    suspend fun login(email: String, password: String): Result<Unit> {
+    suspend fun login(email: String, password: String, role: String): Result<Unit> {
         return try {
-            firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            _isLoading.postValue(true)
+
+            val authResult = firebaseAuth.signInWithEmailAndPassword(email, password).await()
+            val uid = authResult.user?.uid ?: throw Exception("No UID found")
+
+            val userDoc = firestore.collection("users").document(uid).get().await()
+            val storedRole = userDoc.getString("role") ?: throw Exception("User role not found")
+
+            if (storedRole != role) {
+                throw Exception("Please double-check your credentials and selected role.")
+            }
+
             Result.success(Unit)
         } catch (e: Exception) {
             Result.failure(e)
+        } finally {
+            _isLoading.postValue(false)
         }
     }
+
 
     fun logout() {
         firebaseAuth.signOut()

@@ -1,5 +1,7 @@
 package com.pampang.nav.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pampang.nav.repositories.AuthRepository
@@ -12,14 +14,18 @@ class AuthViewModel @Inject constructor(
     private val authRepository: AuthRepository
 ) : ViewModel() {
 
-    fun login(email: String, password: String) {
+    val isLoading = authRepository.isLoading
+
+    private val _registerResult = MutableLiveData<Result<Unit>?>()
+    val registerResult: LiveData<Result<Unit>?> get() = _registerResult
+
+    private val _loginResult = MutableLiveData<Result<Unit>?>()
+    val loginResult: LiveData<Result<Unit>?> get() = _loginResult
+
+    fun login(email: String, password: String, role: String) {
         viewModelScope.launch {
-            val result = authRepository.login(email, password)
-            result.onSuccess {
-                // Handle success
-            }.onFailure {
-                // Handle failure
-            }
+            val result = authRepository.login(email, password, role)
+            _loginResult .value = result
         }
     }
 
@@ -28,16 +34,16 @@ class AuthViewModel @Inject constructor(
             if (email.isEmpty() || password.isEmpty() || username.isEmpty() || role.isEmpty()) return@launch
 
             val result = authRepository.register(email, password, username, role)
-            result.onSuccess {
-                // Handle success
-            }.onFailure {
-                // Handle failure
-            }
+            _registerResult.value = result
         }
     }
 
     fun logout() {
         authRepository.logout()
+    }
+
+    fun clearRegisterResult() {
+        _registerResult.value = null
     }
 
     val currentUser = authRepository.currentUser

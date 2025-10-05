@@ -7,9 +7,9 @@
 
         <import type="android.view.View" />
 
-        <!--        <variable-->
-        <!--            name="viewModel"-->
-        <!--            type="com.trackerteer.grgrider.viewmodels.AuthenticationViewModel" />-->
+                <variable
+                    name="viewModel"
+                    type="com.pampang.nav.viewmodels.AuthViewModel" />
     </data>
 
 
@@ -194,6 +194,7 @@
                     android:layout_marginHorizontal="@dimen/margin_padding_size_xxxlarge"
                     android:layout_marginTop="@dimen/margin_padding_size_xxlarge"
                     android:text="Create"
+                    android:visibility="@{viewModel.isLoading ? View.INVISIBLE : View.VISIBLE}"
                     android:paddingVertical="@dimen/margin_padding_size_small"
                     android:textAllCaps="true"
                     android:textStyle="bold"
@@ -205,7 +206,8 @@
                     android:id="@+id/progress_bar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:visibility="gone"
+                    android:indeterminateTint="@color/colorPrimary"
+                    android:visibility="@{!viewModel.isLoading ? View.GONE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/button_register"
                     app:layout_constraintEnd_toEndOf="@+id/button_register"
                     app:layout_constraintStart_toStartOf="@+id/button_register"

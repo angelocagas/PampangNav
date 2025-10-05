@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import com.angelodev.ggbonuscalc.utilities.extension.showToast
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivitySignupBinding
 import com.pampang.nav.viewmodels.AuthViewModel
@@ -17,7 +18,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivitySignupBinding
     private val mAuthViewModel: AuthViewModel by viewModels()
 
-    private var selectedRole: String? = null  // Store selected role (Buyer or Seller)
+    private var selectedRole: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,10 +28,12 @@ class SignUpActivity : AppCompatActivity() {
     private fun initConfig() {
         initBinding()
         initEventListener()
+        initLiveData()
     }
 
     private fun initBinding() {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
+        mBinding.viewModel = mAuthViewModel
         mBinding.lifecycleOwner = this
     }
 
@@ -53,8 +56,19 @@ class SignUpActivity : AppCompatActivity() {
             buttonRegister.setOnClickListener {
                 val email = edittextEmail.text.toString().trim()
                 val password = edittextPassword.text.toString().trim()
+                val confirmPassword = edittextConfirmPassword.text.toString().trim()
                 val username = edittextUsername.text.toString().trim()
                 val role = selectedRole
+
+                if (email.isEmpty() || password.isEmpty() || username.isEmpty()) {
+                    showToast("Please fill all fields")
+                    return@setOnClickListener
+                }
+
+                if (password != confirmPassword) {
+                    showToast("Passwords do not match")
+                    return@setOnClickListener
+                }
 
                 if (role.isNullOrEmpty()) {
                     showToast("Please select a role")
@@ -64,6 +78,20 @@ class SignUpActivity : AppCompatActivity() {
                 mAuthViewModel.register(email, password, username, role)
             }
         }
+    }
+
+    private fun initLiveData() {
+        mAuthViewModel.registerResult.observe(this) { result ->
+            result?.let {
+                if (it.isSuccess) {
+                    showResultDialog("Success", "Registration successful!", true)
+                } else {
+                    showResultDialog("Error", it.exceptionOrNull()?.message ?: "Unknown error")
+                }
+                mAuthViewModel.clearRegisterResult()
+            }
+        }
+
     }
 
     // --- ROLE SELECTION HANDLER ---
@@ -87,5 +115,18 @@ class SignUpActivity : AppCompatActivity() {
             }
         }
     }
+
+    private fun showResultDialog(title: String, message: String, isSuccess: Boolean = false) {
+        MaterialAlertDialogBuilder(this).apply {
+            setTitle(title)
+            setMessage(message)
+            setPositiveButton(if (isSuccess) "Back to Login" else "OK") { dialog, _ ->
+                if (isSuccess) finish()
+                dialog.dismiss()
+            }
+            setCancelable(false)
+        }.show()
+    }
+
 
 }
