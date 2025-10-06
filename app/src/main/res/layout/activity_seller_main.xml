@@ -14,23 +14,54 @@
         tools:context=".screens.BuyerMainActivity">
 
         <TextView
+            android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Seller"
+            android:text="Welcome Seller!"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Button
-            style="@style/Widget.MaterialComponents.Button"
-            android:id="@+id/button_logout"
+        <LinearLayout
+            android:id="@+id/floating_bottom_nav"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="Logout"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_height="70dp"
+            android:layout_marginHorizontal="@dimen/margin_padding_size_xxxlarge"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/bg_green_rounded"
+            android:elevation="8dp"
+            android:orientation="horizontal"
+            android:paddingHorizontal="24dp"
+            android:gravity="center"
+            android:clipToOutline="true">
+
+            <TextView
+                android:id="@+id/text_view_list"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:drawableTop="@drawable/ic_list"
+                android:drawablePadding="4dp"
+                android:text="List" />
+
+            <TextView
+                android:id="@+id/text_view_profile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:drawableTop="@drawable/ic_person"
+                android:drawablePadding="4dp"
+                android:text="Profile" />
+
+        </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -35,10 +35,8 @@ class SellerMainActivity : AppCompatActivity() {
 
     private fun initEventListener() {
         mBinding.apply {
-            buttonLogout.setOnClickListener {
-                authViewModel.logout()
-                launchActivity<LoginActivity>()
-                finish()
+            textViewProfile.setOnClickListener {
+                launchActivity<ProfileActivity>()
             }
         }
     }
