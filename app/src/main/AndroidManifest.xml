@@ -42,6 +42,10 @@
             android:name=".screens.SellerMainActivity"
             android:exported="false">
         </activity>
+        <activity
+            android:name=".screens.ProfileActivity"
+            android:exported="false">
+        </activity>
     </application>
 
 </manifest>
