@@ -8,6 +8,9 @@
         <item name="android:statusBarColor">@android:color/white</item>
         <item name="android:windowLightStatusBar">true</item>
 
+        <item name="android:windowOptOutEdgeToEdgeEnforcement">true</item>
+        
+
     </style>
 
     <style name="Theme.PampangNav" parent="Base.Theme.PampangNav" />
