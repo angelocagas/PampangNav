@@ -35,15 +35,11 @@
             android:exported="false">
         </activity>
         <activity
-            android:name=".screens.BuyerMainActivity"
+            android:name=".screens.buyer.BuyerMainActivity"
             android:exported="false">
         </activity>
         <activity
-            android:name=".screens.SellerMainActivity"
-            android:exported="false">
-        </activity>
-        <activity
-            android:name=".screens.ProfileActivity"
+            android:name=".screens.seller.SellerMainActivity"
             android:exported="false">
         </activity>
     </application>
