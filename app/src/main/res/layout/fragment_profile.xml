@@ -24,17 +24,20 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/image_view_profile"
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:layout_marginTop="76dp"
+            android:id="@+id/image_profile"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/ic_person"
+            app:civ_border_color="@color/colorPrimary"
+            app:civ_border_overlay="false"
+            app:civ_border_width="10dp"
+            android:layout_marginTop="@dimen/margin_padding_size_xxlarge"
             android:background="@drawable/bg_circle"
-            android:scaleType="centerInside"
-            android:padding="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/constraint_layout_top"
-            android:src="@drawable/pampang_nav_logo"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/text_view_title"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="@+id/constraint_layout_top"
+            app:layout_constraintVertical_bias="0" />
 
         <TextView
             android:id="@+id/text_view_title"
@@ -47,7 +50,7 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_profile" />
+            app:layout_constraintTop_toBottomOf="@+id/image_profile" />
 
         <Button
             android:id="@+id/button_logout"
@@ -59,8 +62,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/image_view_profile" />
-
+            android:layout_marginBottom="@dimen/margin_padding_size_medium" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
