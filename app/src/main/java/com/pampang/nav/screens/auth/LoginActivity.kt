@@ -9,8 +9,8 @@ import com.angelodev.ggbonuscalc.utilities.extension.showToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivityLoginBinding
-import com.pampang.nav.screens.BuyerMainActivity
-import com.pampang.nav.screens.SellerMainActivity
+import com.pampang.nav.screens.buyer.BuyerMainActivity
+import com.pampang.nav.screens.seller.SellerMainActivity
 import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
