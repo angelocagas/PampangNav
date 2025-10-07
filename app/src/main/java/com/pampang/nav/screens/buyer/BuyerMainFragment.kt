@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 class BuyerMainFragment : Fragment() {
 
     private lateinit var mBinding: FragmentMainBinding
+    private var isMenuOpen = false
 
 
     override fun onCreateView(
@@ -45,6 +46,25 @@ class BuyerMainFragment : Fragment() {
     }
 
     private fun initEventListener() {
+        mBinding.apply {
+            fabMain.setOnClickListener {
+                if (isMenuOpen) {
+                    fabMain.setImageResource(R.drawable.ic_add)
+                    fabMenuLayout.animate()
+                        .alpha(0f)
+                        .setDuration(200)
+                        .withEndAction {
+                            fabMenuLayout.visibility = View.GONE
+                        }
+                        .start()
+                } else {
+                    fabMenuLayout.visibility = View.VISIBLE
+                    fabMenuLayout.animate().alpha(1f).setDuration(200).start()
+                    fabMain.setImageResource(R.drawable.ic_close)
+                }
+                isMenuOpen = !isMenuOpen
+            }
+        }
     }
 
     private fun initRequest() {

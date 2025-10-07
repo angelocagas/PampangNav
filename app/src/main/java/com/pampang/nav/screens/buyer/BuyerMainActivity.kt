@@ -9,7 +9,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivityBuyerMainBinding
-import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.viewmodels.AuthViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,6 +16,8 @@ import dagger.hilt.android.AndroidEntryPoint
 class BuyerMainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivityBuyerMainBinding
     private val authViewModel: AuthViewModel by viewModels()
+    private var isMenuOpen = false
+
 
     private lateinit var navController: NavController
 
@@ -37,11 +38,7 @@ class BuyerMainActivity : AppCompatActivity() {
     }
 
     private fun initEventListener() {
-        mBinding.apply {
-//            textViewProfile.setOnClickListener {
-//                launchActivity<ProfileActivity>()
-//            }
-        }
+
     }
 
     private fun initBottomNavigation() {

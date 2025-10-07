@@ -14,6 +14,57 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <!-- Main Floating Button -->
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_main"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|start"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="@dimen/margin_padding_size_xxxlarge"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:backgroundTint="@color/colorPrimaryLightGreen"
+            app:srcCompat="@drawable/ic_add" />
+
+        <!-- Floating Action Buttons Group -->
+        <LinearLayout
+            android:id="@+id/fabMenuLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/fab_main"
+            app:layout_constraintStart_toStartOf="@id/fab_main"
+            android:layout_marginBottom="100dp"
+            android:layout_marginTop="@dimen/margin_padding_size_xlarge"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone"
+            android:layout_gravity="bottom|start">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabFish"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:backgroundTint="@color/colorPrimaryLightGreen"
+                app:srcCompat="@drawable/ic_add" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabVeggies"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                app:backgroundTint="@color/colorPrimaryLightGreen"
+                app:srcCompat="@drawable/ic_add" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fabMeat"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:backgroundTint="@color/colorPrimaryLightGreen"
+                app:srcCompat="@drawable/ic_add" />
+        </LinearLayout>
+
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="0dp"

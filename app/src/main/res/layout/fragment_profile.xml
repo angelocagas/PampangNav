@@ -14,6 +14,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraint_layout_top"
+            android:layout_width="0dp"
+            android:layout_height="150dp"
+            android:background="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_view_profile"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_marginTop="76dp"
+            android:background="@drawable/bg_circle"
+            android:scaleType="centerInside"
+            android:padding="10dp"
+            app:layout_constraintEnd_toEndOf="@+id/constraint_layout_top"
+            android:src="@drawable/pampang_nav_logo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
         <TextView
             android:id="@+id/text_view_title"
             android:layout_width="0dp"
@@ -23,10 +45,9 @@
             android:textAlignment="center"
             android:textSize="@dimen/text_size_large"
             android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_profile" />
 
         <Button
             android:id="@+id/button_logout"
@@ -35,9 +56,10 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="@dimen/margin_padding_size_xxxlarge"
             android:text="Logout"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/text_view_title" />
+            app:layout_constraintTop_toBottomOf="@+id/image_view_profile" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
