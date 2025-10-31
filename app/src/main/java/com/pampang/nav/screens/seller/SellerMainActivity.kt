@@ -11,6 +11,7 @@ import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivitySellerMainBinding
 import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.viewmodels.AuthViewModel
+import com.pampang.nav.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

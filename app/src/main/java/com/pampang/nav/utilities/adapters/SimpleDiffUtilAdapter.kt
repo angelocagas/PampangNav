@@ -8,7 +8,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.DiffUtil
 import com.pampang.nav.databinding.ListItemProfileMenuBinding
+import com.pampang.nav.databinding.ListItemStoreBinding
 import com.pampang.nav.models.ProfileMenuModel
+import com.pampang.nav.models.StoreModel
 import com.pampang.nav.utilities.extension.RecyclerClick
 import javax.inject.Inject
 
@@ -43,7 +45,11 @@ class SimpleDiffUtilAdapter @Inject constructor(
             is ListItemProfileMenuBinding -> {
                 binding.model = item as ProfileMenuModel
                 binding.onClickCallBack = onClickCallBack as RecyclerClick
+            }
 
+            is ListItemStoreBinding -> {
+                binding.model = item as StoreModel
+                binding.onClickCallBack = onClickCallBack as RecyclerClick
             }
 
         }
