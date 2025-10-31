@@ -9,9 +9,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivitySellerMainBinding
-import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.viewmodels.AuthViewModel
-import com.pampang.nav.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,7 +17,6 @@ class SellerMainActivity : AppCompatActivity() {
     private lateinit var mBinding: ActivitySellerMainBinding
     private val authViewModel: AuthViewModel by viewModels()
     private lateinit var navController: NavController
-
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -40,7 +37,6 @@ class SellerMainActivity : AppCompatActivity() {
 
     private fun initEventListener() {
         mBinding.apply {
-
         }
     }
 

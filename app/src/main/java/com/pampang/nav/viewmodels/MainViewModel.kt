@@ -18,6 +18,9 @@ class MainViewModel @Inject constructor(
     private val _profileMenuItems = MutableLiveData<List<ProfileMenuModel>>()
     val profileMenuItems: LiveData<List<ProfileMenuModel>> get() = _profileMenuItems
 
+    private val _addStoreResult = MutableLiveData<Result<Unit>?>()
+    val addStoreResult: LiveData<Result<Unit>?> get() = _addStoreResult
+
     val storeList = mainRepository.stores
     val isLoading = mainRepository.isLoading
 
@@ -29,5 +32,16 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch {
             mainRepository.getStores()
         }
+    }
+
+    fun addStore(storeName: String, openingTime: String, closingTime: String) {
+        viewModelScope.launch {
+            val result = mainRepository.addStore(storeName, openingTime, closingTime)
+            _addStoreResult.postValue(result)
+        }
+    }
+
+    fun clearAddStoreResult() {
+        _addStoreResult.value = null
     }
 }

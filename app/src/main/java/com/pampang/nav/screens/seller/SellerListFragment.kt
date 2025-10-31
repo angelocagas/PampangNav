@@ -16,6 +16,8 @@ import com.pampang.nav.databinding.FragmentMainBinding
 import com.pampang.nav.models.StoreModel
 import com.pampang.nav.utilities.adapters.SimpleDiffUtilAdapter
 import com.pampang.nav.utilities.extension.RecyclerClick
+import com.pampang.nav.utilities.extension.launchActivity
+import com.pampang.nav.utilities.extension.setSafeOnClickListener
 import com.pampang.nav.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlin.getValue
@@ -62,6 +64,9 @@ class SellerListFragment : Fragment() {
     }
 
     private fun initEventListener() {
+        mBinding.fabAddStore.setSafeOnClickListener {
+            requireActivity().launchActivity<AddStoreActivity>()
+        }
     }
 
     private fun initRequest() {

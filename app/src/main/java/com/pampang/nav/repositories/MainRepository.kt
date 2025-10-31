@@ -25,12 +25,13 @@ class MainRepository @Inject constructor(
 
     private val _stores = MutableLiveData<List<StoreModel>>()
     val stores: LiveData<List<StoreModel>> get() = _stores
+    val currentUser = firebaseAuth.currentUser
+
 
     suspend fun getStores() {
         _isLoading.postValue(true)
 
         try {
-            val currentUser = firebaseAuth.currentUser
             if (currentUser == null) {
                 _stores.postValue(emptyList())
                 return
@@ -57,6 +58,36 @@ class MainRepository @Inject constructor(
         }
     }
 
+    suspend fun addStore(storeName: String, openingTime: String, closingTime: String): Result<Unit> {
+        return try {
+            _isLoading.postValue(true)
+
+            val currentUser = firebaseAuth.currentUser
+            if (currentUser == null) {
+                return Result.failure(Exception("User not authenticated"))
+            }
+
+            val storeData = hashMapOf(
+                "store_name" to storeName,
+                "opening_time" to openingTime,
+                "closing_time" to closingTime,
+                "owner_id" to currentUser.uid
+            )
+
+            firestore.collection("stores")
+                .add(storeData)
+                .await()
+
+            getStores()
+
+            Result.success(Unit)
+
+        } catch (e: Exception) {
+            Result.failure(e)
+        } finally {
+            _isLoading.postValue(false)
+        }
+    }
 
 
 }
