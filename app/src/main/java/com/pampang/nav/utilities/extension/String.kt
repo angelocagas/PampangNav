@@ -1,4 +1,4 @@
-package com.angelodev.ggbonuscalc.utilities.extension
+package com.pampang.nav.utilities.extension
 
 
 fun String.isEmailValid(): Boolean {

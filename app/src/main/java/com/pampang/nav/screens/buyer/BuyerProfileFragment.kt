@@ -7,12 +7,17 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import com.pampang.nav.utilities.adapters.SimpleDiffUtilAdapter
+import com.pampang.nav.utilities.extension.showToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pampang.nav.R
 import com.pampang.nav.databinding.FragmentProfileBinding
+import com.pampang.nav.models.ProfileMenuModel
 import com.pampang.nav.screens.auth.LoginActivity
+import com.pampang.nav.utilities.extension.RecyclerClick
 import com.pampang.nav.utilities.extension.launchActivity
 import com.pampang.nav.viewmodels.AuthViewModel
+import com.pampang.nav.viewmodels.MainViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -20,6 +25,8 @@ class BuyerProfileFragment : Fragment() {
 
     private lateinit var mBinding: FragmentProfileBinding
     private val authViewModel: AuthViewModel by viewModels()
+    private val mainViewModel: MainViewModel by viewModels()
+    private lateinit var mAdapter: SimpleDiffUtilAdapter
 
 
     override fun onCreateView(
@@ -45,6 +52,35 @@ class BuyerProfileFragment : Fragment() {
     private fun initConfig() {
         initExtras()
         initEventListener()
+        initAdapter()
+        initLiveData()
+    }
+
+    private fun initAdapter() {
+        mAdapter = SimpleDiffUtilAdapter(R.layout.list_item_profile_menu, RecyclerClick {
+            it as ProfileMenuModel
+            when (it.title) {
+                "Personal Detail" -> {
+                    showToast(it.title)
+                }
+                "Contact Us" -> {
+                    showToast(it.title)
+                }
+                "Privacy and Security" -> {
+                    showToast(it.title)
+                }
+                "Preferences" -> {
+                    showToast(it.title)
+                }
+
+                "Logout" -> {
+                    showLogoutConfirmationDialog()
+                }
+            }
+        })
+
+        mBinding.recyclerViewProfileMenu.adapter = mAdapter
+
     }
 
     private fun initExtras() {
@@ -52,15 +88,19 @@ class BuyerProfileFragment : Fragment() {
 
     private fun initEventListener() {
         mBinding.apply {
-            buttonLogout.setOnClickListener {
-                showLogoutConfirmationDialog()
-            }
+
 
         }
     }
 
     private fun initRequest() {
 
+    }
+
+    private fun initLiveData() {
+        mainViewModel.profileMenuItems.observe(viewLifecycleOwner) {
+            mAdapter.submitList(it)
+        }
     }
 
     private fun showLogoutConfirmationDialog() {

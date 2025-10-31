@@ -5,7 +5,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
-import com.angelodev.ggbonuscalc.utilities.extension.showToast
+import com.pampang.nav.utilities.extension.showToast
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pampang.nav.R
 import com.pampang.nav.databinding.ActivityLoginBinding
